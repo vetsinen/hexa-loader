@@ -1,0 +1,24 @@
+{
+    "name": "hexa/loader",
+    "description": "package for image loading",
+    "type": "library",
+    "version": "v1.0.0",
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "authors": [
+        {
+            "name": "vetsinen",
+            "email": "vetsinen@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hexa\\Image\\": "src/",
+            "Hexa\\Image\\Tests\\": "tests/"
+        }
+    }
+}
