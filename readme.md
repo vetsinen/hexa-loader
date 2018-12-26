@@ -5,10 +5,7 @@
 ### using package
 ``` 
 $ldr = new ImageLoader();
-$path = "img/";
-$filename = "girl.jpg";
-mkdir($path);
-$ldr->act('https://hexa.com.ua/wp-content/themes/hexa/images/girl.jpg', $filename, $path);
+$ldr->act('https://hexa.com.ua/wp-content/themes/hexa/images/girl.jpg', 'babe.jpg', '/tmp/);
 ```
 
 ### to run tests download package from github
