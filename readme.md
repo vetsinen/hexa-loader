@@ -11,13 +11,14 @@ mkdir($path);
 $ldr->act('https://hexa.com.ua/wp-content/themes/hexa/images/girl.jpg', $filename, $path);
 ```
 
-###to run tests download package from github
+### to run tests download package from github
 ```
 composer install
 ./vendor/bin/phpunit
 ```
 
-###original concept
+### original concept
+
 Напишете пакет для Composer, который будет заниматься тем, что будет загружать картинку с
 указанного URL и сохранять ее на ФС(файловая система).
 Пакет выложить на packagist. Пакет должен делать все возможные проверки и бросать
