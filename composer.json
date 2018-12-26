@@ -1,5 +1,5 @@
 {
-    "name": "hexa/imageloader",
+    "name": "neohexa/imageloader",
     "description": "package for image loading",
     "type": "library",
     "version": "v1.0.0",
