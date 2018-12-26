@@ -1,48 +1,48 @@
 <?php
 
 namespace Hexa\Image;
+
 use Exception;
+const image_extensions = ["jpg", "jpeg", "gif", "png"];
 
-class ImageLoader {
-	    /**
-     * Directory where image will be saved
-     *
-     * @var string
+class ImageLoader
+{
+    /**
+     * @param string $url
+     * @param string $filename
+     * @param string $path
+     * @return void
+     * @throws Exception
      */
-    private $pathToDownload;
-
-        /**
-     * Construct method
-     *
-     * @param string $saveToPath (optional)
-     */
-    public function __construct(string $pathToDownload = '')
+    public function act(string $url, string $filename, string $path): void
     {
-        $this->pathToDownload = $pathToDownload;
-    }
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new Exception("Url is not valid!");
+        }
 
-    public function get_image($url)
-    {
-        $url = trim($url);
-        $ex = explode('/', $url);
-        $l = count($ex);
-        $filename = $ex[$l - 1];
-        $ex = explode(".", $filename);
-        if (count($ex) < 2)
-            throw new badFileExtensionException("bad image file");;
-        $extension = strtolower($ex[1]);
-        $image_extensions = ["jpg", "jpeg", "gif", 'png'];
-        if (!in_array($extension, $image_extensions))
-            throw new badFileExtensionException("bad image file");
-        @$f = file_get_contents($url);
-        if (!$f) {
-            throw new remoteFileNotFoundException("image $url can not be found");
+        @$contents = file_get_contents($url);
+        if (!$contents) {
+            throw new Exception("image $url isn't valid or file is not available");
         }
-        $folder = "img/";
-        if (!file_exists($folder)) {
-            mkdir($folder, 0777, true);
+
+        $parts = explode('.', $filename);
+        if (count($parts) < 2 ||
+            strlen($parts[0] === 0) ||
+            !in_array(strtolower($parts[count($parts) - 1]), image_extensions)
+        ) {
+            throw new Exception('bad name for image file');
+        };
+
+        if (!file_exists($path)) {
+            throw new Exception("proposed directory doesn't exists");
         }
-        file_put_contents($folder . $filename, $f);
-        return true;
+        if (file_exists($path . $filename)) {
+            throw new Exception('file $filename already exists');
+        }
+        try {
+            file_put_contents($path . $filename, $contents);
+        } catch (Exception $e) {
+            throw new Exception("file $filename can not be saved");
+        }
     }
 }
